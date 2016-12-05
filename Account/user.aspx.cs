@@ -147,7 +147,7 @@ namespace FacebookLoginASPnetWebForms.account
             doc = JsonConvert.DeserializeXmlNode(postsJsonResponse, "root");
             //var enc = HttpUtility.HtmlEncode(doc);
             //Debug.WriteLine(enc);
-            System.Security.SecurityElement.Escape(doc);
+            //System.Security.SecurityElement.Escape(doc);
             ploostuff = doc.InnerXml;
             ploostuff = ploostuff.Replace("<data>", "\r\n<data>");
             Debug.WriteLine(ploostuff);
