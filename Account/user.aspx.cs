@@ -144,11 +144,13 @@ namespace FacebookLoginASPnetWebForms.account
             //fb2.AppId = "";
             //fb2.AppSecret = "";
             //Facebook.min
-            doc = JsonConvert.DeserializeXmlNode((postsJsonResponse), "root");
-            HttpUtility.HtmlEncode(doc);
+            doc = JsonConvert.DeserializeXmlNode(postsJsonResponse, "root");
+            //var enc = HttpUtility.HtmlEncode(doc);
+            //Debug.WriteLine(enc);
+            System.Security.SecurityElement.Escape(doc);
             ploostuff = doc.InnerXml;
             ploostuff = ploostuff.Replace("<data>", "\r\n<data>");
-            Debug.WriteLine(doc.InnerXml);
+            Debug.WriteLine(ploostuff);
             XmlNodeList xml1 = doc.SelectNodes("/root/posts/data/comments/data/message");
             ploostuff = "";
             foreach (XmlNode xml2 in xml1)
@@ -201,10 +203,13 @@ namespace FacebookLoginASPnetWebForms.account
 
         protected void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+
             int i = ListBox1.SelectedIndex;
             string mess = ListBox1.SelectedValue;
             mess = mess.Replace("'", "&apos");
-//            XmlNodeList xml3 = doc.SelectNodes("(/root/posts/data/message)[text() = '" + mess + "']comments/data/message");
+            ploo.Text = "Search Term: " + mess;
+            //            XmlNodeList xml3 = doc.SelectNodes("(/root/posts/data/message)[text() = '" + mess + "']comments/data/message");
             XmlNodeList xml3 = doc.SelectNodes("(/root/posts/data/message)[text() = '" + mess + "']/../comments/data/message");
             try
             {
@@ -213,14 +218,14 @@ namespace FacebookLoginASPnetWebForms.account
             }
             catch { }
 
-            ploo.Text = "";
+
 
             foreach (XmlNode xml4 in xml3)
             {
                 ploo.Text += HttpUtility.HtmlDecode(xml4.InnerText) + "\r\n";
                 Debug.WriteLine(HttpUtility.HtmlDecode(xml4.InnerText));
             }
-            ploo.Text += doc.InnerXml; 
+            Debug.WriteLine(doc.InnerXml.Replace("<data>","\r\n<data")); 
         }
         
        
