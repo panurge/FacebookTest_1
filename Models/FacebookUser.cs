@@ -19,27 +19,62 @@ namespace FacebookLoginASPnetWebForms.Models
             public string birthday { get; set; }
         }
 
+
+        public class From
+        {
+            public string name { get; set; }
+            public string id { get; set; }
+        }
+
+        public class Datum2
+        {
+            public string created_time { get; set; }
+            public From from { get; set; }
+            public string message { get; set; }
+            public string id { get; set; }
+        }
+
+        public class Cursors
+        {
+            public string before { get; set; }
+            public string after { get; set; }
+        }
+
+        public class Paging
+        {
+            public Cursors cursors { get; set; }
+        }
+
+        public class Comments
+        {
+            public List<Datum2> data { get; set; }
+            public Paging paging { get; set; }
+        }
+
+        public class Datum
+        {
+            public string id { get; set; }
+            public string message { get; set; }
+            public Comments comments { get; set; }
+        }
+
+        public class Paging2
+        {
+            public string previous { get; set; }
+            public string next { get; set; }
+        }
+
         public class Posts
         {
-            public Data data { get; set; }
-
+            public List<Datum> data { get; set; }
+            public Paging2 paging { get; set; }
         }
-        public class Data
+
+        public class RootObject
         {
-            public Story[] story { get; set; }
-            public Message[] message { get; set; }
-
+            public Posts posts { get; set; }
+            public string id { get; set; }
         }
 
-            public class Story
-            {
-
-            }
-
-            public class Message
-            {
-
-            }
-        
     }
 }

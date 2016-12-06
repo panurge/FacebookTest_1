@@ -19,6 +19,7 @@ using System.Xml;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Runtime.Serialization.Json;
+using Facebook;
 
 //using Facebook;
 
@@ -120,7 +121,7 @@ namespace FacebookLoginASPnetWebForms.account
             StreamReader postsInfo = new StreamReader(posts.GetResponse().GetResponseStream());
             string postsJsonResponse = string.Empty;
             postsJsonResponse = postsInfo.ReadToEnd();
-            JObject Jploostuff = JObject.Parse(postsJsonResponse);
+            JObject Jploostuff = JObject.Parse<FacebookData.RootObject>(postsJsonResponse);
             IList<JToken> results = Jploostuff["posts"]["data"].Children().ToList();
 
             //IList<SearchResult> searchResults = new List<SearchResult>();
@@ -143,6 +144,7 @@ namespace FacebookLoginASPnetWebForms.account
             //FacebookClient fb2 = new FacebookClient();
             //fb2.AppId = "";
             //fb2.AppSecret = "";
+            //fb2.SetJsonSerializers()
             //Facebook.min
             doc = JsonConvert.DeserializeXmlNode(postsJsonResponse, "root");
             //var enc = HttpUtility.HtmlEncode(doc);

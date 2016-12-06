@@ -110,6 +110,7 @@
     <Compile Include="Account\user.aspx.designer.cs">
       <DependentUpon>user.aspx</DependentUpon>
     </Compile>
+    <Compile Include="chyron.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
