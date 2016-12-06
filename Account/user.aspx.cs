@@ -121,8 +121,8 @@ namespace FacebookLoginASPnetWebForms.account
             StreamReader postsInfo = new StreamReader(posts.GetResponse().GetResponseStream());
             string postsJsonResponse = string.Empty;
             postsJsonResponse = postsInfo.ReadToEnd();
-            JObject Jploostuff = JObject.Parse<FacebookData.RootObject>(postsJsonResponse);
-            IList<JToken> results = Jploostuff["posts"]["data"].Children().ToList();
+            //JObject Jploostuff = JObject.Parse<FacebookData.RootObject>(postsJsonResponse);
+           // IList<JToken> results = Jploostuff["posts"]["data"].Children().ToList();
 
             //IList<SearchResult> searchResults = new List<SearchResult>();
             //foreach (JToken result in results)
@@ -227,9 +227,25 @@ namespace FacebookLoginASPnetWebForms.account
                 ploo.Text += HttpUtility.HtmlDecode(xml4.InnerText) + "\r\n";
                 Debug.WriteLine(HttpUtility.HtmlDecode(xml4.InnerText));
             }
-            Debug.WriteLine(doc.InnerXml.Replace("<data>","\r\n<data")); 
+            Debug.WriteLine(doc.InnerXml.Replace("<data>","\r\n<data>"));
+
+            outputXmL("ploo","bear");
         }
-        
-       
+
+
+        void outputXmL(string name, string comment)
+        {
+            ChyronData cd = new ChyronData();
+
+            cd.PageType = "facebook_template_1";
+            cd.TemplatePageNumber = "201";
+            cd.BuildPageNumber = "1001";
+            cd.Name = name;
+            cd.Comment = comment;
+
+            System.Xml.Serialization.XmlSerializer x = new System.Xml.Serialization.XmlSerializer(cd.GetType());            
+            x.Serialize(new System.IO.StreamWriter(@"c:\Scripts\text.xml"), cd);
+
+        }
     }
 }
